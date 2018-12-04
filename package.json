@@ -16,7 +16,8 @@
     "knex": "^0.15.2",
     "mocha": "^5.2.0",
     "nightmare": "^3.0.1",
-    "pg": "^7.7.1"
+    "pg": "^7.7.1",
+    "vo": "^4.0.2"
   },
   "devDependencies": {
     "chai-http": "^4.2.0"

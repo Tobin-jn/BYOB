@@ -1,28 +1,96 @@
 var Nightmare = require('nightmare');
 var nightmare = Nightmare({show: true});
 var fs = require('fs');
-nightmare
-  .goto(
-    'https://www.builtincolorado.com/jobs?hash-changes=5&f[0]=job-category_developer-engineer',
-  )
-  .click(`[data-facet-alias='job-category_developer-engineer']`)
-  .click(`[data-facet-alias='job-category_developer-engineer-front-end']`)
-  .click(`[data-facet-alias='job-category_developer-engineer-javascript']`)
-  .wait(3000)
-  .evaluate((result, done) => {
-    const companyTitle = document.querySelectorAll('.company-title');
-    const jobTitle = document.querySelectorAll('h2.title');
-    const location = document.querySelectorAll('.job-location');
+var vo = require('vo');
 
-    let list = [].slice.call(jobTitle);
+vo(run)((err, result) => {
+  if (err) throw err;
+});
 
-    return list.map(title => {
-     return {position:  title.innerText}
-    });
-  })
-  .end()
-  .then(result => {
-    console.log(result);
-    fs.writeFileSync('testOutput.json', JSON.stringify(result));
-  })
-  .catch(error => console.log(`error: ${error}`));
+function* run() {
+  var nightmare = Nightmare({show: true});
+  var maxPage = 5;
+  var currentPage = 0;
+  var nextExists = true;
+  var totalCompanyTitles = [];
+  var totalJobTitles = [];
+  var totalLocations = [];
+  var allData = [];
+
+  yield nightmare
+    .goto(
+      'https://www.builtincolorado.com/jobs?hash-changes=5&f[0]=job-category_developer-engineer',
+    )
+    .click(`[data-facet-alias='job-category_developer-engineer']`)
+    .click(`[data-facet-alias='job-category_developer-engineer-front-end']`)
+    .click(`[data-facet-alias='job-category_developer-engineer-javascript']`)
+    .wait(2000);
+
+  nextExists = yield nightmare.visible(`[title='Go to next page']`);
+
+  while (nextExists && currentPage < maxPage) {
+    allData.push(
+      yield nightmare.evaluate((result, done) => {
+        totalCompanyTitles = [];
+        totalJobTitles = [];
+        totalLocations = [];
+        let companyTitle = document.querySelectorAll('.company-title');
+        let jobTitle = document.querySelectorAll('h2.title');
+        let location = document.querySelectorAll('.job-location');
+
+        let companyTitleArr = [].slice.call(companyTitle);
+        totalCompanyTitles.push(...companyTitleArr);
+        let jobTitleArr = [].slice.call(jobTitle);
+        totalJobTitles.push(...jobTitleArr);
+        let locationArr = [].slice.call(location);
+         totalLocations.push(...locationArr);
+        return totalCompanyTitles.map((title, index) => {
+          return {
+            company_Title: title.innerText,
+            job_position: jobTitleArr[index].innerText,
+            location: locationArr[index].innerText,
+          };
+        });
+      }),
+    );
+    yield nightmare.click(`[title='Go to next page']`).wait(2000);
+
+    currentPage++;
+    nextExists = yield nightmare.visible(`[title='Go to next page']`);
+  }
+  console.dir(allData);
+  fs.writeFileSync('testOutput.json', JSON.stringify(allData));
+  yield nightmare.end();
+}
+
+//nightmare
+// .goto(
+//'https://www.builtincolorado.com/jobs?hash-changes=5&f[0]=job-category_developer-engineer',
+// )
+//.click(`[data-facet-alias='job-category_developer-engineer']`)
+//.click(`[data-facet-alias='job-category_developer-engineer-front-end']`)
+//.click(`[data-facet-alias='job-category_developer-engineer-javascript']`)
+//.wait(3000)
+// .evaluate((result, done) => {
+//let companyTitle = document.querySelectorAll('.company-title');
+//let jobTitle = document.querySelectorAll('h2.title');
+//let location = document.querySelectorAll('.job-location');
+
+// let companyTitleArr = [].slice.call(companyTitle);
+// let jobTitleArr = [].slice.call(jobTitle);
+//let locationArr = [].slice.call(location);
+
+//return companyTitleArr.map((title, index) => {
+//return {
+//company_Title: title.innerText,
+//job_position: jobTitleArr[index].innerText,
+//location: locationArr[index].innerText,
+//};
+//});
+// })
+//.end()
+//.then(result => {
+//console.log(result);
+//fs.writeFileSync('testOutput.json', JSON.stringify(result));
+//})
+//.catch(error => console.log(`error: ${error}`));
