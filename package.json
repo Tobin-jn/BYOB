@@ -4,7 +4,7 @@
   "description": "Build Your Own Backend",
   "main": "server.js",
   "scripts": {
-    "test": "mocha --exit"
+    "test": "NODE_ENV=test mocha --exit"
   },
   "author": "Tobin Nelson",
   "license": "MIT",
