@@ -1,4 +1,4 @@
-const jobs = require('../../../testOutput.js');
+const jobs = require('../../../testOutput_test.js');
 
 const createCompany = (knex, job) => {
   return knex('companies').insert({
@@ -37,7 +37,3 @@ exports.seed = function(knex, Promise) {
       .catch(error => console.log(`Error seeding data: ${error}`));
 
 };
-
-
-
-
