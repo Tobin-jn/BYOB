@@ -1,4 +1,4 @@
-[
+module.exports = [
   {
     "company_Title": "ALTERYX, INC.",
     "job_position": "JavaScript Software Engineer",
