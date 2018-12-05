@@ -11,26 +11,11 @@ const database = require('knex')(config);
 chai.use(chaiHttp);
 
 describe('API Routes', () => {
-  // Run migrations and seeds for test database
-  before(done => {
+  beforeEach(() =>
     database.migrate
-      .latest()
-      .then(() => done())
-      .catch(error => {
-        throw error;
-      })
-      .done();
-  });
-
-  beforeEach(done => {
-    database.seed
-      .run()
-      .then(() => done())
-      .catch(error => {
-        throw error;
-      })
-      .done();
-  });
+      .rollback()
+      .then(() => database.migrate.latest())
+      .then(() => database.seed.run()));
 
   it('check to see if everything is setup correctly', done => {
     chai
@@ -55,23 +40,12 @@ describe('API Routes', () => {
   it('should return an array jobs', done => {
     chai
       .request(app)
-      .get('/api/v1/jobs/5/positions')
+      .get('/api/v1/jobs/1/positions')
       .end((error, response) => {
         response.should.have.status(200);
         response.should.be.json;
         response.body.should.be.a('array');
         done();
       });
-  });
-
-  after(done => {
-    // Run migrations and seeds for test database
-    database.migrate
-      .rollback()
-      .then(() => done())
-      .catch(error => {
-        throw error;
-      })
-      .done();
   });
 });
