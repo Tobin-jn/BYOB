@@ -63,13 +63,28 @@ describe('API Routes', () => {
       .send(newCompany)
       .end((error, response) => {
         expect(response).to.have.status(201);
-        console.log(response.body)
         response.body[0].should.have.property('company_name');
         response.body[0].should.have.property('url');
         response.body[0].should.have.property('company_size');
         response.body[0].should.have.property('job_openings');
+        response.body[0].company_name.should.equal('test');
+        response.body[0].url.should.equal('www.test.com');
+        response.body[0].company_size.should.equal(100);
+        response.body[0].job_openings.should.equal(10);
         response.body[0].id.should.equal(5);
         done();
       });
+  });
+
+  describe('/api/v1/companies', () => {
+    it('should return a 200 status code', done => {
+      chai
+        .request(app)
+        .get('/api/v1/companies')
+        .end((error, response) => {
+          expect(response).to.have.status(200);
+          done();
+        });
+    });
   });
 });
