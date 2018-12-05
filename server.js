@@ -30,16 +30,36 @@ app.get('/api/v1/jobs', (request, response) => {
 
 app.get('/api/v1/jobs/:company_id/positions', (request, response) => {
   const companyId = request.params.company_id;
-  console.log(companyId)
   database('jobs')
     .where('company_id', companyId)
     .select()
     .then(jobs => {
       response.status(200).json(jobs);
-      console.log(jobs);
     });
 });
 
+app.post('/api/v1/companies', (request, response) => {
+  const company = request.body;
+  for (let requiredParameter of [
+    'company_name',
+    'url',
+    'company_size',
+    'job_openings',
+  ]) {
+    if (requiredParameter === undefined) {
+      return response.status(422).send({error: 'Missing required parameter'});
+    }
+  }
+  database('companies')
+    .returning(['id','company_name', 'url', 'company_size', 'job_openings'])
+    .insert(company)
+    .then(company => {
+      response.status(201).json(company);
+    })
+    .catch(error => {
+      response.status(500).json({error: error.message});
+    });
+});
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on ${app.get('port')}.`);
 });

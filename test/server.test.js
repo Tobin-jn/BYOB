@@ -48,4 +48,28 @@ describe('API Routes', () => {
         done();
       });
   });
+
+  it('should post a new company', done => {
+    let newCompany = {
+      company_name: 'test',
+      url: 'www.test.com',
+      company_size: 100,
+      job_openings: 10,
+    };
+
+    chai
+      .request(app)
+      .post('/api/v1/companies')
+      .send(newCompany)
+      .end((error, response) => {
+        expect(response).to.have.status(201);
+        console.log(response.body)
+        response.body[0].should.have.property('company_name');
+        response.body[0].should.have.property('url');
+        response.body[0].should.have.property('company_size');
+        response.body[0].should.have.property('job_openings');
+        response.body[0].id.should.equal(5);
+        done();
+      });
+  });
 });
