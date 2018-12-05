@@ -28,7 +28,8 @@ describe('API Routes', () => {
       .then(() => done())
       .catch(error => {
         throw error;
-      }).done();
+      })
+      .done();
   });
 
   it('check to see if everything is setup correctly', done => {
@@ -40,6 +41,7 @@ describe('API Routes', () => {
         done();
       });
   });
+
   it('should return a 200 status code', done => {
     chai
       .request(app)
@@ -47,6 +49,29 @@ describe('API Routes', () => {
       .end((error, response) => {
         expect(response).to.have.status(200);
         done();
+      });
+  });
+
+  it('should return an array jobs', done => {
+    chai
+      .request(app)
+      .get('/api/v1/jobs/5/positions')
+      .end((error, response) => {
+        response.should.have.status(200);
+        response.should.be.json;
+        response.body.should.be.a('array');
+        done();
+      });
+  });
+
+  after(done => {
+    // Run migrations and seeds for test database
+    database.migrate
+      .rollback()
+      .then(() => done())
+      .catch(error => {
+        throw error;
       })
-  })
+      .done();
+  });
 });

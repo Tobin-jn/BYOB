@@ -14,14 +14,30 @@ app.get('/', (request, response) => {
   response.status(200).send('everything is ok');
 });
 
+//jobs section
 app.get('/api/v1/jobs', (request, response) => {
   database('jobs')
     .select()
     .then(jobs => {
-      console.log(jobs)
       response.status(200).json(jobs);
     })
-    .catch(error => console.log({message: `Error fetching jobs: ${error}`}));
+    .catch(error =>
+      response
+        .status(500)
+        .json({message: `Error fetching jobs: ${error.message}`}),
+    );
+});
+
+app.get('/api/v1/jobs/:company_id/positions', (request, response) => {
+  const companyId = request.params.company_id;
+  console.log(companyId)
+  database('jobs')
+    .where('company_id', companyId)
+    .select()
+    .then(jobs => {
+      response.status(200).json(jobs);
+      console.log(jobs);
+    });
 });
 
 app.listen(app.get('port'), () => {
