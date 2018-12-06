@@ -78,12 +78,12 @@ describe('API Routes', () => {
           response.should.have.status(200);
           response.should.be.json;
           response.body.should.be.a('array');
-          response.body.length.should.equal(1)
+          response.body.length.should.equal(1);
           response.body[0].should.have.property('company_name');
           response.body[0].company_name.should.equal('ALTERYX, INC.');
           done();
-        })
-    })
+        });
+    });
 
     it('should update a companys information', done => {
       let updateCompany = {
@@ -104,9 +104,8 @@ describe('API Routes', () => {
           response.body[0].id.should.equal(4);
           done();
         });
-      });
     });
-
+  });
 
   describe('/api/v1/jobs', () => {
     it('should return all of the jobs', done => {
@@ -122,7 +121,6 @@ describe('API Routes', () => {
         });
     });
   });
-
 
   describe('/api/v1/jobs/:company_id/positions', () => {
     it('should return an array of jobs for a company', done => {
@@ -140,15 +138,28 @@ describe('API Routes', () => {
   });
 
   describe('/api/v1/jobs/:id', () => {
-    it('should delete a company', done => {
+    it('should delete a position', done => {
       chai
         .request(app)
         .delete('/api/v1/jobs/1')
         .end((error, response) => {
-          response.should.have.status(202)
+          response.should.have.status(202);
           response.should.be.json;
-          done()
-      })
-    }); 
+          done();
+        });
+    });
+  });
+
+  describe('/api/v1/companies/:company_id', () => {
+    it('should delete a company', done => {
+      chai
+        .request(app)
+        .delete('/api/v1/companies/1')
+        .end((error, response) => {
+          response.should.have.status(200);
+          response.should.be.json;
+          done();
+        });
+    });
   });
 });

@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const environment = process.env.NODE_ENV || 'development';
+const environment = process.env.NODE_ENV || 'test';
 const configuration = require('./knexfile')[environment];
 const database = require('knex')(configuration);
 app.use(bodyParser.json());
@@ -14,6 +14,16 @@ app.get('/', (request, response) => {
   response.status(200).send('everything is ok');
 });
 
+function checkBeforeDelete(request, response, next) {
+  const company_id = request.params.company_id;
+  console.log(request.params);
+  database('jobs')
+    .where('company_id', company_id)
+    .del()
+    .then(() => next())
+    .catch(error => error)
+}
+
 //Companies
 //get all companies
 app.get('/api/v1/companies', (request, response) => {
@@ -25,7 +35,7 @@ app.get('/api/v1/companies', (request, response) => {
     .catch(error => {
       response
         .status(500)
-        .json({message: `Error fetching companies: ${error.message}`})
+        .json({message: `Error fetching companies: ${error.message}`});
     });
 });
 
@@ -49,33 +59,53 @@ app.post('/api/v1/companies', (request, response) => {
       response.status(201).json(company);
     })
     .catch(error => {
-      response
-        .status(500)
-        .json({error: error.message});
+      response.status(500).json({error: error.message});
     });
 });
 
 //Get a specific company
 app.get('/api/v1/companies/:id', (request, response) => {
-  const { id } = request.params
+  const {id} = request.params;
 
   database('companies')
     .where('id', id)
     .select()
     .then(company => {
-      response.status(200).json(company)
+      response.status(200).json(company);
     })
-    .catch(error => { 
+    .catch(error => {
       response
         .status(500)
-        .json({message: `Error finding company ${id}: ${error.message}`})
+        .json({message: `Error finding company ${id}: ${error.message}`});
     });
 });
 
+//Deletes a specific company
+app.delete(
+  '/api/v1/companies/:company_id',
+  checkBeforeDelete,
+  (request, response) => {
+    const company_id = request.params.company_id;
+    database('companies')
+      .where('id', company_id)
+      .del()
+      .then(company => {
+        response.status(200).json({
+          message: `Company with the id:${company} was successfully deleted.`,
+        });
+      })
+      .catch(error => {
+        response
+          .status(500)
+          .json({message: `Error deleting company: ${error.message}}`});
+      });
+  },
+);
+
 //update company information- put
 app.put('/api/v1/companies/:id', (request, response) => {
-  const { id } = request.params
-  const company = request.body
+  const {id} = request.params;
+  const company = request.body;
 
   database('companies')
     .where('id', id)
@@ -85,9 +115,7 @@ app.put('/api/v1/companies/:id', (request, response) => {
       response.status(201).json(company);
     })
     .catch(error => {
-      response
-        .status(500)
-        .json({error: error.message});
+      response.status(500).json({error: error.message});
     });
 });
 
@@ -116,29 +144,28 @@ app.get('/api/v1/jobs/:company_id/positions', (request, response) => {
       response.status(200).json(jobs);
     })
     .catch(error => {
-      response
-        .status(500)
-        .json({message: `Error fetching jobs at company ${companyId}: ${error.message}`});
+      response.status(500).json({
+        message: `Error fetching jobs at company ${companyId}: ${
+          error.message
+        }`,
+      });
     });
 });
 
 //delete a job
 app.delete('/api/v1/jobs/:id', (request, response) => {
-  const { id } = request.params
+  const {id} = request.params;
 
   database('jobs')
     .where('id', id)
     .del()
-    .then(jobs => {
-      response.status(202).json({success: 'job deleted'});
+    .then(job => {
+      response.status(202).json({success: `job deleted`});
     })
     .catch(error => {
-      response
-        .status(500)
-        .json({error: error.message});
+      response.status(500).json({error: error.message});
     });
 });
-
 
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on ${app.get('port')}.`);
