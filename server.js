@@ -4,28 +4,12 @@ const bodyParser = require('body-parser');
 const environment = process.env.NODE_ENV || 'test';
 const configuration = require('./knexfile')[environment];
 const database = require('knex')(configuration);
+
 app.use(bodyParser.json());
 app.use(express.static('public'));
-
 app.set('port', process.env.PORT || 3000);
 app.locals.title = 'devjobs_test';
 
-app.get('/', (request, response) => {
-  response.status(200).send('everything is ok');
-});
-
-function checkBeforeDelete(request, response, next) {
-  const company_id = request.params.company_id;
-  console.log(request.params);
-  database('jobs')
-    .where('company_id', company_id)
-    .del()
-    .then(() => next())
-    .catch(error => error);
-}
-
-//Companies
-//get all companies
 app.get('/api/v1/companies', (request, response) => {
   database('companies')
     .select()
@@ -39,7 +23,6 @@ app.get('/api/v1/companies', (request, response) => {
     });
 });
 
-//post a new company
 app.post('/api/v1/companies', (request, response) => {
   const company = request.body;
   for (let requiredParameter of [
@@ -63,7 +46,6 @@ app.post('/api/v1/companies', (request, response) => {
     });
 });
 
-//Get a specific company
 app.get('/api/v1/companies/:id', (request, response) => {
   const {id} = request.params;
 
@@ -80,7 +62,6 @@ app.get('/api/v1/companies/:id', (request, response) => {
     });
 });
 
-//Deletes a specific company
 app.delete(
   '/api/v1/companies/:company_id',
   checkBeforeDelete,
@@ -102,7 +83,6 @@ app.delete(
   },
 );
 
-//update company information- put
 app.put('/api/v1/companies/:id', (request, response) => {
   const {id} = request.params;
   const company = request.body;
@@ -119,8 +99,6 @@ app.put('/api/v1/companies/:id', (request, response) => {
     });
 });
 
-//Jobs
-//get all jobs
 app.get('/api/v1/jobs', (request, response) => {
   database('jobs')
     .select()
@@ -134,7 +112,6 @@ app.get('/api/v1/jobs', (request, response) => {
     });
 });
 
-//post a new job
 app.post('/api/v1/jobs', (request, response) => {
   const job = request.body;
 
@@ -154,7 +131,6 @@ app.post('/api/v1/jobs', (request, response) => {
     });
 });
 
-//get jobs at a company
 app.get('/api/v1/jobs/:company_id/positions', (request, response) => {
   const companyId = request.params.company_id;
   database('jobs')
@@ -172,7 +148,6 @@ app.get('/api/v1/jobs/:company_id/positions', (request, response) => {
     });
 });
 
-//update a job
 app.put('/api/v1/jobs/:id', (request, response) => {
   const {id} = request.params;
   const job = request.body;
@@ -189,7 +164,6 @@ app.put('/api/v1/jobs/:id', (request, response) => {
     });
 });
 
-//delete a job
 app.delete('/api/v1/jobs/:id', (request, response) => {
   const {id} = request.params;
 
@@ -203,6 +177,16 @@ app.delete('/api/v1/jobs/:id', (request, response) => {
       response.status(500).json({error: error.message});
     });
 });
+
+function checkBeforeDelete(request, response, next) {
+  const company_id = request.params.company_id;
+
+  database('jobs')
+    .where('company_id', company_id)
+    .del()
+    .then(() => next())
+    .catch(error => error);
+}
 
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on ${app.get('port')}.`);

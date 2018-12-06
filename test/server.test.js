@@ -17,16 +17,6 @@ describe('API Routes', () => {
       .then(() => database.migrate.latest())
       .then(() => database.seed.run()));
 
-  it('check to see if everything is setup correctly', done => {
-    chai
-      .request(app)
-      .get('/')
-      .end((error, response) => {
-        expect(response).to.have.status(200);
-        done();
-      });
-  });
-
   describe('/api/v1/companies', () => {
     it('return all of the companies', done => {
       chai
