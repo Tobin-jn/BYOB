@@ -1,6 +1,8 @@
 # BYOB
 [![Build Status](https://travis-ci.org/Tobin-jn/BYOB.svg?branch=master)](https://travis-ci.org/Tobin-jn/BYOB)
 
+[![Waffle.io - Columns and their card count](https://badge.waffle.io/Tobin-jn/BYOB.svg?columns=all)](https://waffle.io/Tobin-jn/BYOB)
+
 # Build Your Own Backend
 
 ## API - Endpoints
