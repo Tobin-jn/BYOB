@@ -39,7 +39,7 @@ app.post('/api/v1/companies', (request, response) => {
     'job_openings',
   ]) {
     if (requiredParameter === undefined) {
-      return response.status(422).send({error: 'Missing required parameter'});
+      response.status(422).send({error: 'Missing required parameter'});
     }
   }
   database('companies')
