@@ -22,11 +22,11 @@ app.get('/api/v1/companies', (request, response) => {
     .then(company => {
       response.status(200).json(company);
     })
-    .catch(error =>
+    .catch(error => {
       response
         .status(500)
-        .json({message: `Error fetching companies: ${error.message}`}),
-    );
+        .json({message: `Error fetching companies: ${error.message}`})
+    });
 });
 
 //post a new company
@@ -49,11 +49,30 @@ app.post('/api/v1/companies', (request, response) => {
       response.status(201).json(company);
     })
     .catch(error => {
-      response.status(500).json({error: error.message});
+      response
+        .status(500)
+        .json({error: error.message});
     });
 });
 
-//update company information
+//Get a specific company
+app.get('/api/v1/companies/:id', (request, response) => {
+  const { id } = request.params
+
+  database('companies')
+    .where('id', id)
+    .select()
+    .then(company => {
+      response.status(200).json(company)
+    })
+    .catch(error => { 
+      response
+        .status(500)
+        .json({message: `Error finding company ${id}: ${error.message}`})
+    });
+});
+
+//update company information- put
 app.put('/api/v1/companies/:id', (request, response) => {
   const { id } = request.params
   const company = request.body
@@ -66,10 +85,11 @@ app.put('/api/v1/companies/:id', (request, response) => {
       response.status(201).json(company);
     })
     .catch(error => {
-      response.status(500).json({error: error.message});
+      response
+        .status(500)
+        .json({error: error.message});
     });
 });
-
 
 //Jobs
 //get all jobs
@@ -79,11 +99,11 @@ app.get('/api/v1/jobs', (request, response) => {
     .then(jobs => {
       response.status(200).json(jobs);
     })
-    .catch(error =>
+    .catch(error => {
       response
         .status(500)
-        .json({message: `Error fetching jobs: ${error.message}`}),
-    );
+        .json({message: `Error fetching jobs: ${error.message}`});
+    });
 });
 
 //get jobs at a company
@@ -94,6 +114,28 @@ app.get('/api/v1/jobs/:company_id/positions', (request, response) => {
     .select()
     .then(jobs => {
       response.status(200).json(jobs);
+    })
+    .catch(error => {
+      response
+        .status(500)
+        .json({message: `Error fetching jobs at company ${companyId}: ${error.message}`});
+    });
+});
+
+//delete a job
+app.delete('/api/v1/jobs/:id', (request, response) => {
+  const { id } = request.params
+
+  database('jobs')
+    .where('id', id)
+    .del()
+    .then(jobs => {
+      response.status(202).json({success: 'job deleted'});
+    })
+    .catch(error => {
+      response
+        .status(500)
+        .json({error: error.message});
     });
 });
 

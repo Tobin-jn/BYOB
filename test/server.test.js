@@ -28,12 +28,15 @@ describe('API Routes', () => {
   });
 
   describe('/api/v1/companies', () => {
-    it('should return a 200 status code', done => {
+    it('return all of the companies', done => {
       chai
         .request(app)
         .get('/api/v1/companies')
         .end((error, response) => {
-          expect(response).to.have.status(200);
+          response.should.have.status(200);
+          response.should.be.json;
+          response.body.should.be.a('array');
+          response.body.length.should.equal(4);
           done();
         });
     });
@@ -64,6 +67,23 @@ describe('API Routes', () => {
           done();
         });
     });
+  });
+
+  describe('/api/v1/companies/:id', () => {
+    it('should get a specific company', done => {
+      chai
+        .request(app)
+        .get('/api/v1/companies/1')
+        .end((error, response) => {
+          response.should.have.status(200);
+          response.should.be.json;
+          response.body.should.be.a('array');
+          response.body.length.should.equal(1)
+          response.body[0].should.have.property('company_name');
+          response.body[0].company_name.should.equal('ALTERYX, INC.');
+          done();
+        })
+    })
 
     it('should update a companys information', done => {
       let updateCompany = {
@@ -76,36 +96,36 @@ describe('API Routes', () => {
         .send(updateCompany)
         .end((error, response) => {
           expect(response).to.have.status(201);
-          console.log(response.body)
           response.body[0].should.have.property('company_name');
           response.body[0].company_name.should.equal('newCompany');
           response.body[0].should.have.property('url');
           response.body[0].should.have.property('company_size');
           response.body[0].should.have.property('job_openings');
-          // response.body[0].url.should.equal('www.test.com');
-          // response.body[0].company_size.should.equal(100);
-          // response.body[0].job_openings.should.equal(10);
           response.body[0].id.should.equal(4);
           done();
         });
+      });
     });
-  });
+
 
   describe('/api/v1/jobs', () => {
-    it('should return a 200 status code', done => {
+    it('should return all of the jobs', done => {
       chai
         .request(app)
         .get('/api/v1/jobs')
         .end((error, response) => {
-          expect(response).to.have.status(200);
+          response.should.have.status(200);
+          response.should.be.json;
+          response.body.should.be.a('array');
+          response.body.length.should.equal(4);
           done();
         });
     });
   });
 
 
-  describe('/api/v1/jobs/1/positions', () => {
-    it('should return an array jobs', done => {
+  describe('/api/v1/jobs/:company_id/positions', () => {
+    it('should return an array of jobs for a company', done => {
       chai
         .request(app)
         .get('/api/v1/jobs/1/positions')
@@ -113,11 +133,22 @@ describe('API Routes', () => {
           response.should.have.status(200);
           response.should.be.json;
           response.body.should.be.a('array');
+          response.body.length.should.equal(1);
           done();
         });
     });
   });
 
-
-
+  describe('/api/v1/jobs/:id', () => {
+    it('should delete a company', done => {
+      chai
+        .request(app)
+        .delete('/api/v1/jobs/1')
+        .end((error, response) => {
+          response.should.have.status(202)
+          response.should.be.json;
+          done()
+      })
+    }); 
+  });
 });
