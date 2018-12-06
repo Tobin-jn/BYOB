@@ -4,7 +4,8 @@
   "description": "Build Your Own Backend",
   "main": "server.js",
   "scripts": {
-    "test": "NODE_ENV=test mocha --exit"
+    "test": "NODE_ENV=test mocha --exit",
+    "testwc": "nyc --reporter=text mocha --exit"
   },
   "author": "Tobin Nelson",
   "license": "MIT",
@@ -19,6 +20,7 @@
     "vo": "^4.0.2"
   },
   "devDependencies": {
-    "chai-http": "^4.2.0"
+    "chai-http": "^4.2.0",
+    "nyc": "^13.1.0"
   }
 }
