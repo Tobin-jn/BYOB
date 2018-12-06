@@ -14,29 +14,22 @@ app.get('/', (request, response) => {
   response.status(200).send('everything is ok');
 });
 
-app.get('/api/v1/jobs', (request, response) => {
-  database('jobs')
+//Companies
+//get all companies
+app.get('/api/v1/companies', (request, response) => {
+  database('companies')
     .select()
-    .then(jobs => {
-      response.status(200).json(jobs);
+    .then(company => {
+      response.status(200).json(company);
     })
     .catch(error =>
       response
         .status(500)
-        .json({message: `Error fetching jobs: ${error.message}`}),
+        .json({message: `Error fetching companies: ${error.message}`}),
     );
 });
 
-app.get('/api/v1/jobs/:company_id/positions', (request, response) => {
-  const companyId = request.params.company_id;
-  database('jobs')
-    .where('company_id', companyId)
-    .select()
-    .then(jobs => {
-      response.status(200).json(jobs);
-    });
-});
-
+//post a new company
 app.post('/api/v1/companies', (request, response) => {
   const company = request.body;
   for (let requiredParameter of [
@@ -60,18 +53,50 @@ app.post('/api/v1/companies', (request, response) => {
     });
 });
 
-app.get('/api/v1/companies', (request, response) => {
+//update company information
+app.put('/api/v1/companies/:id', (request, response) => {
+  const { id } = request.params
+  const company = request.body
+
   database('companies')
-    .select()
+    .where('id', id)
+    .update(company)
+    .returning(['id', 'company_name', 'url', 'company_size', 'job_openings'])
     .then(company => {
-      response.status(200).json(company);
+      response.status(201).json(company);
+    })
+    .catch(error => {
+      response.status(500).json({error: error.message});
+    });
+});
+
+
+//Jobs
+//get all jobs
+app.get('/api/v1/jobs', (request, response) => {
+  database('jobs')
+    .select()
+    .then(jobs => {
+      response.status(200).json(jobs);
     })
     .catch(error =>
       response
         .status(500)
-        .json({message: `Error fetching companies: ${error.message}`}),
+        .json({message: `Error fetching jobs: ${error.message}`}),
     );
 });
+
+//get jobs at a company
+app.get('/api/v1/jobs/:company_id/positions', (request, response) => {
+  const companyId = request.params.company_id;
+  database('jobs')
+    .where('company_id', companyId)
+    .select()
+    .then(jobs => {
+      response.status(200).json(jobs);
+    });
+});
+
 
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on ${app.get('port')}.`);
