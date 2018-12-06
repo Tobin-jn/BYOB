@@ -95,7 +95,7 @@ describe('API Routes', () => {
         .put('/api/v1/companies/4')
         .send(updateCompany)
         .end((error, response) => {
-          expect(response).to.have.status(201);
+          expect(response).to.have.status(200);
           response.body[0].should.have.property('company_name');
           response.body[0].company_name.should.equal('newCompany');
           response.body[0].should.have.property('url');
@@ -121,6 +121,30 @@ describe('API Routes', () => {
           done();
         });
     });
+
+    it('should post a new job', done => {
+      const newJob = {
+        title: 'Janitor',
+        company_id: 3,
+        location: 'GREATER DENVER AREA',
+      }
+
+      chai
+        .request(app)
+        .post('/api/v1/jobs')
+        .send(newJob)
+        .end((request, response) => {
+          expect(response).to.have.status(201);
+          response.body[0].should.have.property('title');
+          response.body[0].should.have.property('company_id');
+          response.body[0].should.have.property('location');
+          response.body[0].title.should.equal('Janitor');
+          response.body[0].company_id.should.equal(3);
+          response.body[0].location.should.equal('GREATER DENVER AREA');
+          response.body[0].id.should.equal(5);
+          done();
+        })
+    }) 
   });
 
 
@@ -140,6 +164,27 @@ describe('API Routes', () => {
   });
 
   describe('/api/v1/jobs/:id', () => {
+    it('should update a job', done => {
+      const updateJob = {
+        title: 'Janitor',
+      };
+
+      chai
+        .request(app)
+        .put('/api/v1/jobs/1')
+        .send(updateJob)
+        .end((error, response) => {
+          expect(response).to.have.status(200);
+          response.body[0].should.have.property('title');
+          response.body[0].title.should.equal('Janitor');
+          response.body[0].should.have.property('id');
+          response.body[0].should.have.property('company_id');
+          response.body[0].should.have.property('company_name');
+          response.body[0].id.should.equal(1);
+          done();
+      });
+    });
+    
     it('should delete a company', done => {
       chai
         .request(app)
