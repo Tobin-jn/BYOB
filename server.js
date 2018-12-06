@@ -21,7 +21,7 @@ function checkBeforeDelete(request, response, next) {
     .where('company_id', company_id)
     .del()
     .then(() => next())
-    .catch(error => error)
+    .catch(error => error);
 }
 
 //Companies
@@ -43,11 +43,11 @@ app.get('/api/v1/companies', (request, response) => {
 app.post('/api/v1/companies', (request, response) => {
   const company = request.body;
   for (let requiredParameter of [
-      'company_name',
-      'url',
-      'company_size',
-      'job_openings',
-    ]) {
+    'company_name',
+    'url',
+    'company_size',
+    'job_openings',
+  ]) {
     if (requiredParameter === undefined) {
       response.status(422).send({error: 'Missing required parameter'});
     }
@@ -136,13 +136,9 @@ app.get('/api/v1/jobs', (request, response) => {
 
 //post a new job
 app.post('/api/v1/jobs', (request, response) => {
-  const job = request.body
+  const job = request.body;
 
-  for (let requiredParameter of [
-      'title',
-      'company_id',
-      'location',
-    ]) {
+  for (let requiredParameter of ['title', 'company_id', 'location']) {
     if (requiredParameter === undefined) {
       response.status(422).send({error: 'Missing required parameter'});
     }
@@ -154,11 +150,9 @@ app.post('/api/v1/jobs', (request, response) => {
       response.status(201).json(job);
     })
     .catch(error => {
-      response
-        .status(500)
-        .json({error: error.message});
+      response.status(500).json({error: error.message});
     });
-})
+});
 
 //get jobs at a company
 app.get('/api/v1/jobs/:company_id/positions', (request, response) => {
@@ -180,8 +174,8 @@ app.get('/api/v1/jobs/:company_id/positions', (request, response) => {
 
 //update a job
 app.put('/api/v1/jobs/:id', (request, response) => {
-  const { id } = request.params
-  const job = request.body
+  const {id} = request.params;
+  const job = request.body;
 
   database('jobs')
     .where('id', id)
@@ -191,9 +185,7 @@ app.put('/api/v1/jobs/:id', (request, response) => {
       response.status(200).json(job);
     })
     .catch(error => {
-      response
-        .status(500)
-        .json({error: error.message});
+      response.status(500).json({error: error.message});
     });
 });
 
