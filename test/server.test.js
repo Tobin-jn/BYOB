@@ -201,6 +201,18 @@ describe('API Routes', () => {
           done();
       })
     });
+
+    it('should return a 422 if the url is incorrect', done => {
+      const url = '/api/v1/jobs/find_by_location'
+
+      chai
+        .request(app)
+        .get(url)
+        .end((error, response) => {
+          expect(response).to.have.status(422);
+          done();
+      });
+    });
   });
 
   describe('/api/v1/jobs/:company_id/positions', () => {
