@@ -87,10 +87,6 @@ app.put('/api/v1/companies/:id', (request, response) => {
   const {id} = request.params;
   const company = request.body;
 
-  // if (company === {}){
-  //   response.status(422).response({error: 'Empty request body'})
-  // }
-
   database('companies')
     .where('id', id)
     .update(company)
@@ -155,10 +151,6 @@ app.get('/api/v1/jobs/:company_id/positions', (request, response) => {
 app.put('/api/v1/jobs/:id', (request, response) => {
   const {id} = request.params;
   const job = request.body;
-
-  // if(company === {}){
-  //   response.status(422).response({error: 'Empty request body'})
-  // }
 
   database('jobs')
     .where('id', id)
