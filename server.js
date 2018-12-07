@@ -135,6 +135,25 @@ app.post('/api/v1/jobs', (request, response) => {
     });
 });
 
+app.get('/api/v1/jobs/find_by_location', (request, response) => {
+  const { location } = request.query
+
+  if (!location) {
+    return response.status(422).send({ error: 'Request must include location. Example: /api/v1/jobs/find_by_location?location=GREATER+BOULDER+AREA'})
+  }
+
+  database('jobs')
+    .where('location', location)
+    .select()
+    .then(jobs => {
+      response.status(200).json(jobs)
+    })
+    .catch( error => {
+      response.status(500).json({
+        message: `Error fetching jobs in ${location}: ${error.message}`,})
+    });
+});
+
 app.get('/api/v1/jobs/:company_id/positions', (request, response) => {
   const companyId = request.params.company_id;
   database('jobs')
@@ -145,12 +164,11 @@ app.get('/api/v1/jobs/:company_id/positions', (request, response) => {
     })
     .catch(error => {
       response.status(500).json({
-        message: `Error fetching jobs at company ${companyId}: ${
-          error.message
-        }`,
+        message: `Error fetching jobs at company ${companyId}: ${error.message}`,
       });
     });
 });
+
 
 app.put('/api/v1/jobs/:id', (request, response) => {
   const {id} = request.params;
