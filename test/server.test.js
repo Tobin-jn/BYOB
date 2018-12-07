@@ -15,6 +15,16 @@ describe('API Routes', () => {
       .then(() => database.migrate.latest())
       .then(() => database.seed.run()));
 
+  it('should return a 404 for a route that does not exist', done => {
+    chai
+      .request(app)
+      .get('/badurl')
+      .end((error, response) => {
+        response.should.have.status(404);
+        done();
+      })
+  })
+
   describe('/api/v1/companies', () => {
     it('return all of the companies', done => {
       chai
@@ -227,5 +237,3 @@ describe('API Routes', () => {
     });
   });
 });
-
-
