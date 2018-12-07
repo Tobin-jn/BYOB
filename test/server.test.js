@@ -55,6 +55,22 @@ describe('API Routes', () => {
           done();
         });
     });
+
+    it('should return a 422 for incomplete parameters', () => {
+      const newCompany = {
+        company_name: 'Turing'
+      };
+
+      chai
+        .request(app)
+        .post('/api/v1/companies')
+        .send(newCompany)
+        .end((request, response) => {
+          response.should.have.status(422)
+          response.body.should.have.property('error')
+          response.body.error.should.equal('Missing required parameter')
+        })
+    });
   });
 
   describe('/api/v1/companies/:id', () => {
@@ -93,6 +109,21 @@ describe('API Routes', () => {
           done();
         });
     });
+
+    // it('should return a 422 if request attempts to update with nothing', done => {
+    //   const updateCompany = {};
+
+    //   chai
+    //     .request(app)
+    //     .put('/api/v1/companies/4')
+    //     .send(updateCompany)
+    //     .end((request, response) => {
+    //       console.log(response.body)
+    //       response.should.have.status(422)
+    //       response.body.should.have.property('error')
+    //       response.body.error.should.equal('Empty request body')
+    //     })
+    // })
   });
 
   describe('/api/v1/jobs', () => {
@@ -132,6 +163,22 @@ describe('API Routes', () => {
           done();
         });
     });
+
+    it('should return a 422 for incomplete parameters', () => {
+      const newJob = {
+        company_id: 3
+      };
+
+      chai
+        .request(app)
+        .post('/api/v1/jobs')
+        .send(newJob)
+        .end((request, response) => {
+          response.should.have.status(422)
+          response.body.should.have.property('error')
+          response.body.error.should.equal('Missing required parameter')
+        })
+    });
   });
 
   describe('/api/v1/jobs/:company_id/positions', () => {
@@ -170,6 +217,20 @@ describe('API Routes', () => {
         });
     });
 
+    // it('should return a 422 if request attempts to update with nothing', done => {
+    //   const updateJob = {};
+
+    //   chai
+    //     .request(app)
+    //     .put('/api/v1/jobs/1')
+    //     .send(updateJob)
+    //     .end((request, response) => {
+    //       response.should.have.status(422)
+    //       response.body.should.have.property('error')
+    //       response.body.error.should.equal('Empty request body')
+    //     })
+    // })
+
     it('should delete a job', done => {
       chai
         .request(app)
@@ -195,3 +256,17 @@ describe('API Routes', () => {
     });
   });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
