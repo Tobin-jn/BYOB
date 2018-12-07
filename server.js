@@ -31,7 +31,7 @@ app.post('/api/v1/companies', (request, response) => {
     'company_size',
     'job_openings',
   ]) {
-    if (requiredParameter === undefined) {
+    if (company[requiredParameter] === undefined) {
       response.status(422).send({error: 'Missing required parameter'});
     }
   }
@@ -116,7 +116,7 @@ app.post('/api/v1/jobs', (request, response) => {
   const job = request.body;
 
   for (let requiredParameter of ['title', 'company_id', 'location']) {
-    if (requiredParameter === undefined) {
+    if (job[requiredParameter] === undefined) {
       response.status(422).send({error: 'Missing required parameter'});
     }
   }

@@ -15,6 +15,16 @@ describe('API Routes', () => {
       .then(() => database.migrate.latest())
       .then(() => database.seed.run()));
 
+  it('should return a 404 for a route that does not exist', done => {
+    chai
+      .request(app)
+      .get('/badurl')
+      .end((error, response) => {
+        response.should.have.status(404);
+        done();
+      })
+  })
+
   describe('/api/v1/companies', () => {
     it('return all of the companies', done => {
       chai
@@ -54,6 +64,22 @@ describe('API Routes', () => {
           response.body[0].id.should.equal(5);
           done();
         });
+    });
+
+    it('should return a 422 for incomplete parameters', () => {
+      const newCompany = {
+        company_name: 'Turing'
+      };
+
+      chai
+        .request(app)
+        .post('/api/v1/companies')
+        .send(newCompany)
+        .end((request, response) => {
+          response.should.have.status(422)
+          response.body.should.have.property('error')
+          response.body.error.should.equal('Missing required parameter')
+        })
     });
   });
 
@@ -131,6 +157,22 @@ describe('API Routes', () => {
           response.body[0].id.should.equal(5);
           done();
         });
+    });
+
+    it('should return a 422 for incomplete parameters', () => {
+      const newJob = {
+        company_id: 3
+      };
+
+      chai
+        .request(app)
+        .post('/api/v1/jobs')
+        .send(newJob)
+        .end((request, response) => {
+          response.should.have.status(422)
+          response.body.should.have.property('error')
+          response.body.error.should.equal('Missing required parameter')
+        })
     });
   });
 
