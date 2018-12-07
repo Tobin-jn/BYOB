@@ -119,6 +119,19 @@ describe('API Routes', () => {
           done();
         });
     });
+
+    it('should return a 422 if no parameters are given', done => {
+      const updateCompany = {};
+
+      chai
+        .request(app)
+        .put('/api/v1/companies/4')
+        .send(updateCompany)
+        .end((error, response) => {
+          expect(response).to.have.status(422);
+          done();
+      });
+    });
   });
 
   describe('/api/v1/jobs', () => {
@@ -210,6 +223,19 @@ describe('API Routes', () => {
           response.body[0].id.should.equal(1);
           done();
         });
+    });
+
+    it('should return a 422 if no parameters are given', done => {
+      const updateJob = {};
+
+      chai
+        .request(app)
+        .put('/api/v1/jobs/1')
+        .send(updateJob)
+        .end((error, response) => {
+          expect(response).to.have.status(422);
+          done();
+      });
     });
 
     it('should delete a job', done => {

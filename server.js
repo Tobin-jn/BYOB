@@ -87,6 +87,9 @@ app.put('/api/v1/companies/:id', (request, response) => {
   const {id} = request.params;
   const company = request.body;
 
+  if (Object.keys(company).length === 0) {
+    response.status(422).send({error: 'Missing required parameters'})
+  } else {
   database('companies')
     .where('id', id)
     .update(company)
@@ -97,6 +100,7 @@ app.put('/api/v1/companies/:id', (request, response) => {
     .catch(error => {
       response.status(500).json({error: error.message});
     });
+  }
 });
 
 app.get('/api/v1/jobs', (request, response) => {
@@ -152,16 +156,20 @@ app.put('/api/v1/jobs/:id', (request, response) => {
   const {id} = request.params;
   const job = request.body;
 
-  database('jobs')
-    .where('id', id)
-    .update(job)
-    .returning(['id', 'title', 'company_id', 'company_name'])
-    .then(job => {
-      response.status(200).json(job);
-    })
-    .catch(error => {
-      response.status(500).json({error: error.message});
-    });
+  if (Object.keys(job).length === 0) {
+    response.status(422).send({error: 'Missing required parameters'})
+  } else {
+    database('jobs')
+      .where('id', id)
+      .update(job)
+      .returning(['id', 'title', 'company_id', 'company_name'])
+      .then(job => {
+        response.status(200).json(job);
+      })
+      .catch(error => {
+        response.status(500).json({error: error.message});
+      });
+  }
 });
 
 app.delete('/api/v1/jobs/:id', (request, response) => {
