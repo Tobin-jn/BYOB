@@ -189,6 +189,20 @@ describe('API Routes', () => {
     });
   });
 
+  describe('/api/v1/jobs/find_by_location', () => {
+    it('should return jobs in a specific location', done => {
+      chai
+        .request(app)
+        .get('/api/v1/jobs/find_by_location?location=GREATER+BOULDER+AREA')
+        .end((error, response) => {
+          response.should.have.status(200);
+          response.should.be.json;
+          response.body.should.be.a('array');
+          done();
+      })
+    });
+  });
+
   describe('/api/v1/jobs/:company_id/positions', () => {
     it('should return an array of jobs for a company', done => {
       chai
@@ -200,7 +214,7 @@ describe('API Routes', () => {
           response.body.should.be.a('array');
           response.body.length.should.equal(1);
           done();
-        });
+        })
     });
   });
 

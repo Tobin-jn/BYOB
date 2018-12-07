@@ -150,8 +150,8 @@ app.get('/api/v1/jobs/find_by_location', (request, response) => {
     })
     .catch( error => {
       response.status(500).json({
-        message: `Error fetching jobs in ${location}: ${error.message}`,
-    })
+        message: `Error fetching jobs in ${location}: ${error.message}`,})
+    });
 });
 
 app.get('/api/v1/jobs/:company_id/positions', (request, response) => {
