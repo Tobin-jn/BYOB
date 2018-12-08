@@ -33,6 +33,12 @@ Adding a job must have parameters included (title, company_id, location). Users 
 
 Getting all the positions at a specific compay requires the company id. The positions are returned to the user.
 
+#### Find jobs based on location
+
+```'/api/v1/jobs/find_by_location'```
+
+To search by location requires a query paramater in the URL. An example URL may look like ```/api/v1/jobs/find_by_location?location=GREATER+BOULDER+AREA```
+
 #### Update a Job and Delete a Job
 
 ```/api/v1/jobs/:id```
