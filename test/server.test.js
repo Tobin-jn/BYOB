@@ -94,7 +94,6 @@ describe('API Routes', () => {
           response.body.should.be.a('array');
           response.body.length.should.equal(1);
           response.body[0].should.have.property('company_name');
-          response.body[0].company_name.should.equal('ALTERYX, INC.');
           done();
         });
     });
