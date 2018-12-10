@@ -2,12 +2,6 @@
 
 This is a general guide to setting up the BYO development environment on your local machine.
 
-The following guides are located in the wiki and provide more OS-specific step-by-step instructions:
-
-- [Ubuntu Setup Guide][ubuntu]
-- [macOS Sierra Setup Guide][sierra]
-- [OSX El Capitan Setup Guide][el-capitan]
-
 ### Dependencies
 
    * body-parser 1.18.3
