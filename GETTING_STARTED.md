@@ -34,26 +34,20 @@ Fetch the latest version of `master` from `upstream` (ie. the main repo):
 
     git fetch upstream master
 
-### Get it running
+### Get it running locally
 
-First, you need to create the database user the app will use by manually typing the following in your terminal:
-
-```sh
-$ sudo -u postgres psql -c "CREATE USER ofn WITH SUPERUSER CREATEDB PASSWORD 'f00d'"
-```
-
-This will create the "ofn" user as superuser and allowing it to create databases. If this command fails, check the [troubleshooting section](#creating-the-database) for an alternative.
-
-Once done, run `script/setup`. If the script succeeds you're ready to start developing. If not, take a look at the output as it should be informative enough to help you troubleshoot.
-
-If still you get stuck do not hesitate to open an issue reporting the full output of the script.
-
-Now, your dreams of spinning up a development server can be realised:
-
-    node server.js
+ Use the terminal for the following:
+1. Install PostgreSQL globally on your machine if it is not already installed
+2. NPM install
+3. Create new database named 'devjobs' on local machine
+4. knex migrate:latest
+5. knex seed:run
+6. npm start
 
 
-### Testing
+ ### Testing
+1. Create new database named 'devjobs_test' on local machine
+2. knex migrate:latest --env test
 
 Tests can be run with:
 
