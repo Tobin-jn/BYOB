@@ -83,4 +83,4 @@ $ createdb byob_test --owner=ofn
 ```
 If these commands succeed, you should be able to [continue the setup process](#get-it-running).
 
-[Contribute]: https://github.com/openfoodfoundation/openfoodnetwork/wiki
+[Contribute]: https://github.com/Tobin-jn/BYOB/blob/master/CONTRIBUTING.md
