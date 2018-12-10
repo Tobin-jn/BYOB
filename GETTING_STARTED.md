@@ -33,6 +33,11 @@ And then add an `upstream` remote that points to the main repo:
 Fetch the latest version of `master` from `upstream` (ie. the main repo):
 
     git fetch upstream master
+    
+This guide assumes that the git remote name of the main repo is `upstream` and that your fork is named `origin`.
+
+Create a new branch on your local machine to make your changes against (based on `upstream/master`):
+     git checkout -b branch-name-here --no-track upstream/master
 
 ### Get it running locally
 
