@@ -1,0 +1,19 @@
+body {
+  display: grid;
+  grid-template-columns: 20% 50% 30%; 
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+.main-nav {
+  background-color: blue;
+}
+
+.main-content {
+  background-color: grey;
+}
+
+.main-demo {
+  background-color: black;
+}
