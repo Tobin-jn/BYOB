@@ -62,36 +62,3 @@ function* run() {
   fs.writeFileSync('testOutput.json', JSON.stringify(allData));
   yield nightmare.end();
 }
-
-//nightmare
-// .goto(
-//'https://www.builtincolorado.com/jobs?hash-changes=5&f[0]=job-category_developer-engineer',
-// )
-//.click(`[data-facet-alias='job-category_developer-engineer']`)
-//.click(`[data-facet-alias='job-category_developer-engineer-front-end']`)
-//.click(`[data-facet-alias='job-category_developer-engineer-javascript']`)
-//.wait(3000)
-// .evaluate((result, done) => {
-//let companyTitle = document.querySelectorAll('.company-title');
-//let jobTitle = document.querySelectorAll('h2.title');
-//let location = document.querySelectorAll('.job-location');
-
-// let companyTitleArr = [].slice.call(companyTitle);
-// let jobTitleArr = [].slice.call(jobTitle);
-//let locationArr = [].slice.call(location);
-
-//return companyTitleArr.map((title, index) => {
-//return {
-//company_Title: title.innerText,
-//job_position: jobTitleArr[index].innerText,
-//location: locationArr[index].innerText,
-//};
-//});
-// })
-//.end()
-//.then(result => {
-//console.log(result);
-//fs.writeFileSync('testOutput.json', JSON.stringify(result));
-//})
-//.catch(error => console.log(`error: ${error}`));
-
