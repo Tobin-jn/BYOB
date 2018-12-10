@@ -45,3 +45,6 @@ To search by location requires a query paramater in the URL. An example URL may 
 
 To update a job the updated property or properties must be included (title, location, company_id). The updated job will be returned to the user.
 To delete a job and all its job postings the id is required. Users will get a success message returned.
+
+#Contribute 
+Please follow our guide here: [CONTRIBUTING](CONTRIBUTING.md)
