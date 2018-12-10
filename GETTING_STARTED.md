@@ -18,7 +18,7 @@ This is a general guide to setting up the BYO development environment on your lo
 
 ### Get it
 
-If you contribute code to the project [contribute](https://github.com/Tobin-jn/BYOB/blob/master/CONTRIBUTING.md), begin by forking this repo using the `Fork` button in the top-right corner of this screen. You should then be able to use `git clone` to copy your fork onto your local machine.
+If you [contribute](https://github.com/Tobin-jn/BYOB/blob/master/CONTRIBUTING.md) code to the project , begin by forking this repo using the `Fork` button in the top-right corner of this screen. You should then be able to use `git clone` to copy your fork onto your local machine.
 
     git clone https://github.com/YOUR_GITHUB_USERNAME_HERE/BYOB
 
