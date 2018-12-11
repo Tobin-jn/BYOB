@@ -13,17 +13,32 @@ app.locals.title = 'devjobs_test';
 app.get('/api/v1/companies', (request, response) => {
   const { companyName } = request.query;
 
-  database('companies')
-    .where('company_name', 'like', `%${companyName.toUpperCase()}%`)
-    .select()
-    .then(company => {
-      response.status(200).json(company);
-    })
-    .catch(error => {
-      response
-        .status(500)
-        .json({message: `Error fetching companies: ${error.message}`});
-    });
+  if (companyName) {
+    database('companies')
+      .where('company_name', 'like', `%${companyName.toUpperCase()}%`)
+      .select()
+      .then(company => {
+        response.status(200).json(company);
+      })
+      .catch(error => {
+        response
+          .status(500)
+          .json({message: `Error fetching companies: ${error.message}`});
+      });
+    } else {
+      database('companies')
+        .select()
+        .then(company => {
+          response.status(200).json(company);
+        })
+        .catch(error => {
+          response
+            .status(500)
+            .json({message: `Error fetching companies: ${error.message}`});
+        });
+      
+  }
+
 });
 
 app.post('/api/v1/companies', (request, response) => {
