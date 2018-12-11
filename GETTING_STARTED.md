@@ -38,7 +38,7 @@ This guide assumes that the git remote name of the main repo is `upstream` and t
 
 Create a new branch on your local machine to make your changes against (based on `upstream/master`):
 
-     ```git checkout -b branch-name-here --no-track upstream/master```
+     git checkout -b branch-name-here --no-track upstream/master
 
 ### Get it running locally
 
@@ -55,7 +55,9 @@ Create a new branch on your local machine to make your changes against (based on
 
 5. ```knex seed:run```
 
-6. ```npm start```
+ ```
+ npm start
+ ```
 
 
  ### Testing
