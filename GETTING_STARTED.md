@@ -86,6 +86,11 @@ CREATE DATABASE devjobs_test;
 ```
 knex migrate:latest --env test
 ```
+3. Seed database for test environment
+
+```
+knex seed:run --env test
+```
 
 Tests can be run with:
 
