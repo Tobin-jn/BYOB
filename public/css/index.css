@@ -1,19 +1,58 @@
 body {
   display: grid;
-  grid-template-columns: 20% 50% 30%; 
+  grid-template-columns: 55% 45%; 
   height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
   margin: 0;
   padding: 0;
 }
 
-.main-nav {
-  background-color: blue;
-}
-
 .main-content {
-  background-color: grey;
+  padding: 5%;
 }
 
 .main-demo {
   background-color: black;
+}
+
+.fetch-demo {
+  display: flex;
+
+}
+
+.fetch-info, .test-btn {
+  border: 1px solid grey;
+}
+
+.fetch-info {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  display: flex;
+  justify-content: flex-start;
+  height: 35px;
+  padding: 0 20px 0 20px;
+}
+
+.fetch-desc {
+  align-self: center;
+  border-right: none;
+  margin: 0;
+  padding: 0;
+}
+
+.test-btn {
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: rgb(235, 235, 235);
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  margin-left: -2px;
+  padding-top: 2px;
+  width: 90px;
+}
+
+.test-btn:hover {
+  background-color: orange;
+  color: white;
+  cursor: pointer;
 }
