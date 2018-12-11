@@ -44,17 +44,31 @@ Create a new branch on your local machine to make your changes against (based on
 
  Use the terminal for the following:
 1. Install PostgreSQL globally on your machine if it is not already installed
+```
+brew install postgres
+```
 
-2. ```NPM install```
+2.
+```
+npm install
+```
 
 3. Create new database named 'devjobs' on local machine
 
-```CREATE DATABASE devjobs;```
+```
+CREATE DATABASE devjobs;
+```
 
-4. ```knex migrate:latest```
+4. 
+```
+knex migrate:latest
+```
 
-5. ```knex seed:run```
-
+5.
+```
+knex seed:run
+```
+6.
  ```
  npm start
  ```
