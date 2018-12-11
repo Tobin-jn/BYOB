@@ -1,7 +1,6 @@
 body {
   display: grid;
-  grid-template-columns: 55% 45%; 
-  height: 100vh;
+  grid-template-columns: 5fr 4fr;
   font-family: Arial, Helvetica, sans-serif;
   margin: 0;
   padding: 0;
@@ -9,18 +8,29 @@ body {
 
 .main-content {
   padding: 5%;
+  grid-column: 1 / span 1;
+ 
 }
 
 .main-demo {
   background-color: black;
+  color: white;
+  grid-column: 2 / span 1;
+}
+
+.server-display {
+  padding: 5%;
+  height: 100vh;
+  width: 100%;
+  position: fixed;
 }
 
 .fetch-demo {
   display: flex;
-
 }
 
 .fetch-info, .test-btn {
+  font-weight: bold;
   border: 1px solid grey;
 }
 
@@ -56,3 +66,4 @@ body {
   color: white;
   cursor: pointer;
 }
+

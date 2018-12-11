@@ -6,57 +6,105 @@
   </head>
   <body>
     <section class='main-content'>
-        <h1>COMPANY</h1>
-        <h3>Get all Companies</h3>
-        <p>Get an array of all companies:</p>
-        <div class="fetch-demo">
-          <div class="fetch-info">
-            <p class="fetch-desc">https://palettepop.herokuapp.com/api/v1/companies</p>
-          </div>
-          <button class="test-btn" value="allcomp">GET</button>
+      <h4>REST API</h4>
+      <h2>Live Job Data</h2>
+      <p>Show and post live company and job data to your project.</p>
+      <h1>Company</h1>
+      <h4>Get All Companies</h4>
+      <p>Get an array of all companies with a simple GET REQUEST.</p>
+      <div class="fetch-demo">
+        <div class="fetch-info">
+          <p class="fetch-desc">https://byob-test.herokuapp.com/api/v1/companies</p>
         </div>
-        
-        <!-- #### Receive all Companies and Add a Company
-        
-        ```/api/v1/companies```
-        
-        Adding a company must have parameters included (company_name, url, company_size, job_openings). Users should expect to see the company returned.
-        
-        #### See a Specific Company, Update a Company, and Delete a Job
-        
-        ```/api/v1/companies/:id```
-        
-        To see a specific company, the id is required. Users will get the company returned. 
-        To delete a company and all its job postings the id is required. Users will get a success message returned.
-        To update a company the updated property or properties must be included (company_name, url, company_size, job_openings). The updated company will be returned to the user.
-        
-        #### Receive all Jobs and Add a Job
-        
-        ```/api/v1/jobs```
-        
-        Adding a job must have parameters included (title, company_id, location). Users should expect to see the job returned.
-        
-        #### Receive all positions at a specific company
-        
-        ```/api/v1/jobs/:company_id/positions```
-        
-        Getting all the positions at a specific compay requires the company id. The positions are returned to the user.
-        
-        #### Find jobs based on location
-        
-        ```'/api/v1/jobs/find_by_location'```
-        
-        To search by location requires a query paramater in the URL. An example URL may look like ```/api/v1/jobs/find_by_location?location=GREATER+BOULDER+AREA```
-        
-        #### Update a Job and Delete a Job
-        
-        ```/api/v1/jobs/:id```
-        
-        To update a job the updated property or properties must be included (title, location, company_id). The updated job will be returned to the user.
-        To delete a job and all its job postings the id is required. Users will get a success message returned. -->
+        <button class="test-btn" value="allcomp">GET</button>
+      </div>
+      <h4>Get A Specific Company</h4>
+      <p>To get a specific company, make a GET REQUEST with the specific company id.</p>
+      <div class="fetch-demo">
+        <div class="fetch-info">
+          <p class="fetch-desc">https://byob-test.herokuapp.com/api/v1/companies/:id</p>
+        </div>
+        <button class="test-btn" value="speccomp">GET</button>
+      </div>
+      <h4>Add A Company</h4>
+      <p>To add a specific company, make a POST REQUEST with the body: { company_name: 'name', url: 'url', company_size: 'company size', job_openings: 00 } </p>
+      <div class="fetch-demo">
+        <div class="fetch-info">
+          <p class="fetch-desc">https://byob-test.herokuapp.com/api/v1/companies</p>
+        </div>
+        <button class="test-btn" value="addcomp">POST</button>
+      </div>
+      <h4>Update A Specific Company</h4>
+      <p>To update a specific company, add the specific company id and make a PATCH REQUEST with the body: { company_name: 'name', url: 'url', company_size: 'company size', job_openings: 00 } </p>
+      <div class="fetch-demo">
+        <div class="fetch-info">
+          <p class="fetch-desc">https://byob-test.herokuapp.com/api/v1/companies/:id</p>
+        </div>
+        <button class="test-btn" value="updatecomp">PATCH</button>
+      </div>
+      <h4>Delete A Specific Company</h4>
+      <p>To delete a specific company, add the specific company id and make a DELETE REQUEST.</p>
+      <div class="fetch-demo">
+        <div class="fetch-info">
+          <p class="fetch-desc">https://byob-test.herokuapp.com/api/v1/companies/:id</p>
+        </div>
+        <button class="test-btn" value="deletecomp">DELETE</button>
+      </div>
+      <h1>Jobs</h1>
+      <h4>Get All Jobs</h4>
+      <p>Get an array of all jobs from every company with a simple GET REQUEST.</p>
+      <div class="fetch-demo">
+        <div class="fetch-info">
+          <p class="fetch-desc">https://byob-test.herokuapp.com/api/v1/jobs</p>
+        </div>
+        <button class="test-btn" value="alljobs">GET</button>
+      </div>
+      <h4>Add A Job</h4>
+      <p>Add a job to a specific company with a POST REQUEST with the body: {title: 'title', company_id: 00, location: 'location name'}.</p>
+      <div class="fetch-demo">
+        <div class="fetch-info">
+          <p class="fetch-desc">https://byob-test.herokuapp.com/api/v1/jobs</p>
+        </div>
+        <button class="test-btn" value="alljobs">POST</button>
+      </div>
+      <h4>Get All Jobs At Specific Company</h4>
+      <p>To get all jobs from a specific company, make a GET REQUEST with the company id as an address parameter.</p>
+      <div class="fetch-demo">
+        <div class="fetch-info">
+          <p class="fetch-desc">https://byob-test.herokuapp.com/api/v1/jobs/:company_id/positions</p>
+        </div>
+        <button class="test-btn" value="alljobs">GET</button>
+      </div>
+      <h4>Find Jobs Based On Location</h4>
+      <p>To find jobs by location, make a GET REQUEST with an address query parameter.</p>
+      <div class="fetch-demo">
+        <div class="fetch-info">
+          <p class="fetch-desc">https://byob-test.herokuapp.com/api/v1/jobs/find_by_location?location=denver</p>
+        </div>
+        <button class="test-btn" value="alljobs">GET</button>
+      </div>
+      <h4>Update A Specific Job</h4>
+      <p>Update a specific job with a POST REQUEST with the body: {title: 'title', company_id: 00, location: 'location name'}.</p>
+      <div class="fetch-demo">
+        <div class="fetch-info">
+          <p class="fetch-desc">https://byob-test.herokuapp.com/api/v1/jobs/find_by_location?location=denver</p>
+        </div>
+        <button class="test-btn" value="alljobs">POST</button>
+      </div>
+      <h4>Delete A Specific Job</h4>
+      <p>To delete a specific company, add the specific company id and make a DELETE REQUEST.</p>
+      <div class="fetch-demo">
+        <div class="fetch-info">
+          <p class="fetch-desc">https://byob-test.herokuapp.com/api/v1/jobs/:id</p>
+        </div>
+        <button class="test-btn" value="alljobs">POST</button>
+      </div>  
     </section>
     <section class='main-demo'>
+      <div class="server-display">
+        <h4 class="server-title">Live Server Response</h4>
+      </div>
     </section>
   </body>
-  <script src="./js/index.js"></script>
+  <!-- <script src="./js/index.js"></script> -->
 </html>
