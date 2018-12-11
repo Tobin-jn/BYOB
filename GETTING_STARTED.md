@@ -48,7 +48,7 @@ Create a new branch on your local machine to make your changes against (based on
 brew install postgres
 ```
 
-2.
+2. NPM install
 ```
 npm install
 ```
@@ -59,16 +59,16 @@ npm install
 CREATE DATABASE devjobs;
 ```
 
-4. 
+4. Migrate development database
 ```
 knex migrate:latest
 ```
 
-5.
+5. Seed development database
 ```
 knex seed:run
 ```
-6.
+6. NPM Start
  ```
  npm start
  ```
@@ -77,9 +77,15 @@ knex seed:run
  ### Testing
 1. Create new database named 'devjobs_test' on local machine
 
-```CREATE DATABASE devjobs_test;```
+```
+CREATE DATABASE devjobs_test;
+```
 
-2. ```knex migrate:latest --env test```
+2. Migrate database for test environment
+
+```
+knex migrate:latest --env test
+```
 
 Tests can be run with:
 
