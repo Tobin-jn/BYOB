@@ -37,22 +37,33 @@ Fetch the latest version of `master` from `upstream` (ie. the main repo):
 This guide assumes that the git remote name of the main repo is `upstream` and that your fork is named `origin`.
 
 Create a new branch on your local machine to make your changes against (based on `upstream/master`):
-     git checkout -b branch-name-here --no-track upstream/master
+
+     ```git checkout -b branch-name-here --no-track upstream/master```
 
 ### Get it running locally
 
  Use the terminal for the following:
 1. Install PostgreSQL globally on your machine if it is not already installed
-2. NPM install
+
+2. ```NPM install```
+
 3. Create new database named 'devjobs' on local machine
-4. knex migrate:latest
-5. knex seed:run
-6. npm start
+
+```CREATE DATABASE devjobs;```
+
+4. ```knex migrate:latest```
+
+5. ```knex seed:run```
+
+6. ```npm start```
 
 
  ### Testing
 1. Create new database named 'devjobs_test' on local machine
-2. knex migrate:latest --env test
+
+```CREATE DATABASE devjobs_test;```
+
+2. ```knex migrate:latest --env test```
 
 Tests can be run with:
 
