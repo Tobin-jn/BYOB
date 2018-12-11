@@ -11,7 +11,10 @@ app.set('port', process.env.PORT || 3000);
 app.locals.title = 'devjobs_test';
 
 app.get('/api/v1/companies', (request, response) => {
+  const { companyName } = request.query;
+
   database('companies')
+    .where('company_name', 'like', `%${companyName.toUpperCase()}%`)
     .select()
     .then(company => {
       response.status(200).json(company);
