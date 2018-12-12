@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "chai-http": "^4.2.0",
+    "nodemon": "^1.18.8",
     "nyc": "^13.1.0"
   }
 }

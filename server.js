@@ -10,17 +10,38 @@ app.use(express.static('public'));
 app.set('port', process.env.PORT || 3000);
 app.locals.title = 'devjobs_test';
 
+// This endpoint was updated to allow for search queries for company name
 app.get('/api/v1/companies', (request, response) => {
-  database('companies')
-    .select()
-    .then(company => {
-      response.status(200).json(company);
-    })
-    .catch(error => {
-      response
-        .status(500)
-        .json({message: `Error fetching companies: ${error.message}`});
-    });
+  // if a query was made, the url will look like this:
+    // /api/v1/companies?companyName=COMPANY_NAME_HERE
+  const { companyName } = request.query;
+
+  if (companyName) {
+    database('companies')
+      .where('company_name', 'like', `%${companyName.toUpperCase()}%`)
+      .select()
+      .then(company => {
+        response.status(200).json(company);
+      })
+      .catch(error => {
+        response
+          .status(500)
+          .json({message: `Error fetching companies: ${error.message}`});
+      });
+    } else {
+      database('companies')
+        .select()
+        .then(company => {
+          response.status(200).json(company);
+        })
+        .catch(error => {
+          response
+            .status(500)
+            .json({message: `Error fetching companies: ${error.message}`});
+        });
+      
+  }
+
 });
 
 app.post('/api/v1/companies', (request, response) => {

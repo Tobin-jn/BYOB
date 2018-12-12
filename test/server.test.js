@@ -37,7 +37,19 @@ describe('API Routes', () => {
           response.body.length.should.equal(4);
           done();
         });
-    });
+      });
+      
+      it('returns the companies from the search query', done => {
+        chai
+          .request(app)
+          .get('/api/v1/companies?companyName=sen')
+          .end((error, response) => {
+            response.body.length.should.equal(1);
+            done();
+          });
+        
+    })
+
 
     it('should post a new company', done => {
       let newCompany = {

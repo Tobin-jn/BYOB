@@ -1,0 +1,69 @@
+body {
+  display: grid;
+  grid-template-columns: 7fr 4fr;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.main-content {
+  padding: 5%;
+  grid-column: 1 / span 1;
+ 
+}
+
+.main-demo {
+  background-color: black;
+  color: white;
+  grid-column: 2 / span 1;
+}
+
+.server-display {
+  padding: 5%;
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+}
+
+.fetch-demo {
+  display: flex;
+}
+
+.fetch-info, .test-btn {
+  font-weight: bold;
+  border: 1px solid grey;
+}
+
+.fetch-info {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  display: flex;
+  justify-content: flex-start;
+  height: 35px;
+  padding: 0 20px 0 20px;
+}
+
+.fetch-desc {
+  align-self: center;
+  border-right: none;
+  margin: 0;
+  padding: 0;
+}
+
+.test-btn {
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: rgb(235, 235, 235);
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  margin-left: -2px;
+  padding-top: 2px;
+  width: 90px;
+}
+
+.test-btn:hover {
+  background-color: orange;
+  color: white;
+  cursor: pointer;
+}
+

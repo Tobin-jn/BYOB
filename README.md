@@ -13,6 +13,12 @@
 
 Adding a company must have parameters included (company_name, url, company_size, job_openings). Users should expect to see the company returned.
 
+#### Search for specific companies
+
+```/api/v1/companies?companyName=WRITE_NAME_HERE```
+
+Using the search query will return all companies where the name includes the text in the query.
+
 #### See a Specific Company, Update a Company, and Delete a Job
 
 ```/api/v1/companies/:id```
