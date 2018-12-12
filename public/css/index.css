@@ -19,8 +19,9 @@ body {
 }
 
 .server-display {
-  padding: 5%;
   height: 100vh;
+  overflow: scroll;
+  padding: 5%;
   width: 100%;
   position: fixed;
 }

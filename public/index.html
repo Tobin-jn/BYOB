@@ -65,7 +65,7 @@
         <div class="fetch-info">
           <p class="fetch-desc">https://byob-test.herokuapp.com/api/v1/jobs</p>
         </div>
-        <button class="test-btn" value="alljobs">POST</button>
+        <button class="test-btn" value="addjobs">POST</button>
       </div>
       <h4>Get All Jobs At Specific Company</h4>
       <p>To get all jobs from a specific company, make a GET REQUEST with the company id as an address parameter.</p>
@@ -73,7 +73,7 @@
         <div class="fetch-info">
           <p class="fetch-desc">https://byob-test.herokuapp.com/api/v1/jobs/:company_id/positions</p>
         </div>
-        <button class="test-btn" value="alljobs">GET</button>
+        <button class="test-btn" value="companyjobs">GET</button>
       </div>
       <h4>Find Jobs Based On Location</h4>
       <p>To find jobs by location, make a GET REQUEST with an address query parameter.</p>
@@ -81,7 +81,7 @@
         <div class="fetch-info">
           <p class="fetch-desc">https://byob-test.herokuapp.com/api/v1/jobs/find_by_location?location=denver</p>
         </div>
-        <button class="test-btn" value="alljobs">GET</button>
+        <button class="test-btn" value="locationjobs">GET</button>
       </div>
       <h4>Update A Specific Job</h4>
       <p>Update a specific job with a POST REQUEST with the body: {title: 'title', company_id: 00, location: 'location name'}.</p>
@@ -89,7 +89,7 @@
         <div class="fetch-info">
           <p class="fetch-desc">https://byob-test.herokuapp.com/api/v1/jobs/find_by_location?location=denver</p>
         </div>
-        <button class="test-btn" value="alljobs">POST</button>
+        <button class="test-btn" value="updatejob">POST</button>
       </div>
       <h4>Delete A Specific Job</h4>
       <p>To delete a specific company, add the specific company id and make a DELETE REQUEST.</p>
@@ -97,14 +97,16 @@
         <div class="fetch-info">
           <p class="fetch-desc">https://byob-test.herokuapp.com/api/v1/jobs/:id</p>
         </div>
-        <button class="test-btn" value="alljobs">POST</button>
+        <button class="test-btn" value="deletejob">POST</button>
       </div>  
     </section>
     <section class='main-demo'>
       <div class="server-display">
         <h4 class="server-title">Live Server Response</h4>
+        <pre class="response-example"></pre>
       </div>
     </section>
   </body>
-  <!-- <script src="./js/index.js"></script> -->
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="./js/index.js"></script>
 </html>
