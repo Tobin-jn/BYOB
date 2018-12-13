@@ -175,19 +175,37 @@ app.get('/api/v1/jobs/find_by_location', (request, response) => {
     });
 });
 
+// app.get('/api/v1/jobs/:company_id/positions', (request, response) => {
+//   const companyId = request.params.company_id;
+//   database('jobs')
+//     .where('company_id', companyId)
+//     .select()
+//     .then(jobs => {
+//       response.status(200).json(jobs);
+//     })
+//     .catch(error => {
+//       response.status(500).json({
+//         message: `Error fetching jobs at company ${companyId}: ${error.message}`,
+//       });
+//     });
+// });
+
 app.get('/api/v1/jobs/:company_id/positions', (request, response) => {
   const companyId = request.params.company_id;
+  const { number } = request.query;
+​
   database('jobs')
     .where('company_id', companyId)
     .select()
     .then(jobs => {
-      response.status(200).json(jobs);
+      const answer = number ? jobs.length : jobs;
+      response.status(200).json(answer);
     })
-    .catch(error => {
-      response.status(500).json({
-        message: `Error fetching jobs at company ${companyId}: ${error.message}`,
-      });
-    });
+  .catch(error => {
+    response.status(500).json({
+      message: `Error fetching jobs at company ${companyId}: ${error.message}`,
+    }); 
+  });
 });
 
 
