@@ -3,7 +3,27 @@
 
 [![Waffle.io - Columns and their card count](https://badge.waffle.io/Tobin-jn/BYOB.svg?columns=all)](https://waffle.io/Tobin-jn/BYOB)
 
-# Build Your Own Backend
+This API was created to provide job information for current positions in web development. 
+
+### See it Live
+
+[Job Database API](https://byob-test.herokuapp.com/) on Heroku
+
+### Tech Stack
+
+* Express.js
+* Knex.js
+* Nightmare.js for web scraping
+* PostgreSQL database
+* Mocha and Chai
+* Travis CI
+* Heroku
+
+## Screenshots
+
+#### API Landing Page:
+
+<img src='src/images/landing.png' alt='Main View' width='700' >
 
 ## API - Endpoints
 
@@ -52,5 +72,22 @@ To search by location requires a query paramater in the URL. An example URL may 
 To update a job the updated property or properties must be included (title, location, company_id). The updated job will be returned to the user.
 To delete a job and all its job postings the id is required. Users will get a success message returned.
 
-# Contribute 
+### Test Driven Development
+
+Mocha and Chai for backend testing.
+
+Run with ```npm test``` from the root directory
+
+## Contribute 
 Please follow our guide here: [CONTRIBUTING](CONTRIBUTING.md)
+
+### Original Assignment
+
+[BYOB](http://frontend.turing.io/projects/build-your-own-backend.html) from the [Turing School of Software & Design](https://turing.io/)
+
+### Contributors
+
+* Aaron Weissman: [Github Profile](https://github.com/aweissman11)
+* Graham Munro: [Github Profile](https://github.com/gmasterofnone)
+* Mark Pearyer: [Github Profile](https://github.com/marcusp619)
+* Tobin Nelson: [Github Profile](https://github.com/Tobin-jn)
