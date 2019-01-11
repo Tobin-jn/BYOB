@@ -19,6 +19,11 @@ This API was created to provide job information for current positions in web dev
 * Travis CI
 * Heroku
 
+## Screenshots
+### Landing Page
+
+![landingpage](https://user-images.githubusercontent.com/32209705/51063706-59b9e980-15b9-11e9-8a23-f718a8c6319f.png)
+
 ## API - Endpoints
 
 #### Receive all Companies and Add a Company
