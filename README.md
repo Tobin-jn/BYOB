@@ -1,4 +1,4 @@
-# BYOB
+# Build Your Own Backend
 [![Build Status](https://travis-ci.org/Tobin-jn/BYOB.svg?branch=master)](https://travis-ci.org/Tobin-jn/BYOB)
 
 [![Waffle.io - Columns and their card count](https://badge.waffle.io/Tobin-jn/BYOB.svg?columns=all)](https://waffle.io/Tobin-jn/BYOB)
@@ -18,12 +18,6 @@ This API was created to provide job information for current positions in web dev
 * Mocha and Chai
 * Travis CI
 * Heroku
-
-## Screenshots
-
-#### API Landing Page:
-
-<img src='src/images/landing.png' alt='Main View' width='700' >
 
 ## API - Endpoints
 
